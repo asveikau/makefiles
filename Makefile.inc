@@ -6,6 +6,7 @@ ifneq ($(shell which winver.exe 2>/dev/null),)
 WINDOWS:=y
 PLATFORM:=windows
 CXX:=cc
+NASM:=nasm
 
 EXESUFFIX:=.exe
 LIBSUFFIX:=.lib
@@ -24,6 +25,14 @@ LDFLAGS += -mamd64
 else
 CFLAGS += -DXP_SUPPORT
 XP_SUPPORT:=y
+XP_SUPPORT_OBJS := \
+   $(MAKEFILES_ROOT)src/xpsup-c.o \
+   $(MAKEFILES_ROOT)src/xpsup.o
+LDFLAGS += $(XP_SUPPORT_OBJS) /link /subsystem:windows,5.01 /force
+
+$(MAKEFILES_ROOT)src/xpsup-c.o: $(MAKEFILES_ROOT)src/xpsup-c.c
+$(MAKEFILES_ROOT)src/xpsup.o: $(MAKEFILES_ROOT)src/xpsup.asm
+	$(NASM) -f coff -o $@ $<
 endif
 
 else
