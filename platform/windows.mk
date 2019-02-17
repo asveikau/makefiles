@@ -1,10 +1,12 @@
-CXX  := cc
+CC   := $(MAKEFILES_ROOT)win32-bin/cc
+CXX  := $(CC)
 NASM := nasm
 STRIP:= echo
+LIB  := $(MAKEFILES_ROOT)win32-bin/clwrapper-lib
 
 EXESUFFIX:=.exe
 LIBSUFFIX:=.lib
-LIBWRAPPER=@echo Archiving $@ ... && clwrapper-lib /OUT:$@
+LIBWRAPPER=@echo Archiving $@ ... && $(LIB) /OUT:$@
 
 CFLAGS+=\
    -DUNICODE \
