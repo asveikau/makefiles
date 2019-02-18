@@ -48,6 +48,18 @@ Then in `Makefile.inc`:
 This allows make to not only correctly calculate header dependencies for
 `src/foo.o`, but also allows us to set per-library `CFLAGS` via `LIBFOO_CFLAGS`.
 
+## Notes for building on Windows
+
+Windows builds work inside `cmd.exe`.  It is assumed that [MSysGit binaries][2]
+a [Win32 port of GNU make][3], and [nasm][4] are on the PATH.
+
+C and C++ compilation happen via [clwrapper][5], included with the repo.  It
+has been tested with VS2015 and Windows SDK 10586.  VS and Windows SDK are a
+bit of a moving target so I make no guarantees about more recent builds.
+
+By default, x86 and WinXP support are assumed.  Try "make WIN64=y" to build
+for amd64.
+
 ## Simple continuous integration builds
 
 `scripts/remote-build.sh` will take a tarball of the repo, push it to hosts
@@ -59,7 +71,7 @@ First, we assume that the remote host recognizes your SSH key and you can
 authenticate with it using the username `user`.  These instructions are beyond
 the scope of this writing.
 
-On the remote host we set up a [hacky host discovery method][2]:
+On the remote host we set up a [hacky host discovery method][6]:
 
     perl scripts/bcast.pl -d -n myhost
 
@@ -79,21 +91,9 @@ This will copy resulting binaries into `./out/`.
 Note that you can specify multiple hosts on the command line, and the script
 will run the necessary ssh commands in parallel. 
 
-## Notes for building on Windows
-
-Windows builds work inside `cmd.exe`.  It is assumed that [MSysGit binaries][3]
-a [Win32 port of GNU make][4], and [nasm][5] are on the PATH.
-
-C and C++ compilation happen via [clwrapper][6], included with the repo.  It
-has been tested with VS2015 and Windows SDK 10586.  VS and Windows SDK are a
-bit of a moving target so I make no guarantees about more recent builds.
-
-By default, x86 and WinXP support are assumed.  Try "make WIN64=y" to build
-for amd64.
-
 [1]: https://aegis.sourceforge.net/auug97.pdf
-[2]: https://github.com/asveikau/bcast
-[3]: https://gitforwindows.org/
-[4]: http://gnuwin32.sourceforge.net/packages/make.htm
-[5]: https://www.nasm.us/
-[6]: https://github.com/asveikau/clwrapper
+[2]: https://gitforwindows.org/
+[3]: http://gnuwin32.sourceforge.net/packages/make.htm
+[4]: https://www.nasm.us/
+[5]: https://github.com/asveikau/clwrapper
+[6]: https://github.com/asveikau/bcast
