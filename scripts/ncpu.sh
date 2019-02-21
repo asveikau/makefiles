@@ -1,7 +1,7 @@
 #!/bin/sh
 
 case `uname -s` in
-Darwin|FreeBSD|OpenBSD)
+Darwin|FreeBSD|OpenBSD|NetBSD)
    sysctl hw.ncpu | sed s/[^0-9]*//
    ;;
 Linux)
