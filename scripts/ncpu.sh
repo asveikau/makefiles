@@ -2,6 +2,7 @@
 
 case `uname -s` in
 Darwin|FreeBSD|OpenBSD|NetBSD)
+   export PATH="$PATH":/sbin:/usr/sbin
    sysctl hw.ncpu | sed s/[^0-9]*//
    ;;
 Linux)
