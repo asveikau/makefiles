@@ -18,7 +18,7 @@ artifacts() {
 if [ $config = "--perform" ]; then
 
    gmake=`$script_path/find-gmake.sh`
-   ncpu=`$script_path/ncpu.sh`
+   ncpu=`($script_path/ncpu.sh; echo 1) | head -n 1`
 
    rm -rf out
 
