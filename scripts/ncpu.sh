@@ -8,6 +8,9 @@ Darwin|FreeBSD|OpenBSD|NetBSD)
 Linux)
    grep -c ^processor /proc/cpuinfo
    ;; 
+SunOS)
+   psrinfo | wc -l
+   ;;
 MSYS_NT*)
    echo $NUMBER_OF_PROCESSORS
    ;;
