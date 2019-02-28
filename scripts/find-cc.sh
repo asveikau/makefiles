@@ -21,6 +21,11 @@ EOF
 
 testprogram_cc() {
    cat << "EOF"
+// XXX
+#if defined(__sun__)
+#define __STRICT_ANSI__ 1
+#endif
+
 #include <vector>
 #include <new>
 int main() {
