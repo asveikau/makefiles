@@ -2,7 +2,9 @@
 # Common variables for reasonable Unix-like systems.
 #
 
-CXX:=c++
+CC:=$(shell $(MAKEFILES_ROOT)scripts/find-cc.sh cc clang gcc)
+CXX:=$(shell $(MAKEFILES_ROOT)scripts/find-cc.sh c++ clang++ g++)
+
 CXXFLAGS+=-std=c++11
 
 LIBPREFIX:=lib
