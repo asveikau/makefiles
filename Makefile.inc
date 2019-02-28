@@ -16,7 +16,8 @@ include $(MAKEFILES_ROOT)platform/unix.mk
 endif
 -include $(MAKEFILES_ROOT)platform/$(PLATFORM).mk
 
-ifneq ($(shell echo $(CXX) | grep -c g\+\+), 0)
+ifneq ($(shell $(CXX) --version | grep -c 'Free Software Foundation'), 0)
+CXX_GNU:=y
 CXXFLAGS+=-fpermissive
 endif
 
