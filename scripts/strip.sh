@@ -4,6 +4,10 @@
 
 binfile="$1"
 
+if [ `uname -s` = SunOS ]; then
+   export PATH="$PATH":/usr/gnu/bin
+fi
+
 if [ "`uname -s`" = Darwin ]; then
    debugfile="$binfile".dSYM
    rm -rf "$debugfile"
