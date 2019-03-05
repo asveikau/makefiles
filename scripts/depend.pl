@@ -108,7 +108,21 @@ my @roots;
 foreach my $key (keys(%ENV))
 {
    next if (!($key =~ /_ROOT$/));
+   my $path = $ENV{$key};
+   next if $path eq '';
    push @roots, $key;
+}
+@roots = sort {length($ENV{$b}) <=> length($ENV{$a})} @roots;
+
+sub filter_dotdot
+{
+   my $file = shift;
+
+   $_ = $file;
+   s/[^\/\.]+\/\.\.\///g;
+   $file= $_;
+
+   return $file;
 }
 
 sub filter_roots
@@ -118,11 +132,10 @@ sub filter_roots
    foreach my $root (@roots)
    {
       my $path = $ENV{$root};
-      next if $path eq '';
       if (length($file) > length($path) &&
           substr($file, 0, length($path)) eq $path)
       {
-         return '$(' . $root . ')' . substr($file, length($path));
+         return '$(' . $root . ')' . filter_dotdot(substr($file, length($path)));
       }
    }
 }
@@ -164,17 +177,20 @@ foreach (@ARGV)
          }
 
          print "$prefix$obj: $prefix$filename";
-         foreach $value (sort {$a cmp $b} values %files)
+         my %filteredFiles;
+         foreach $value (values %files)
          {
             my $filtered = filter_roots($value);
             if ($filtered eq '')
             {
-               print " $prefix$value";
+               $filtered=$prefix . filter_dotdot($value);
             }
-            else
-            {
-               print " $filtered";
-            }
+
+            $filteredFiles{$filtered} = 1;
+         }
+         foreach $value (sort {$a cmp $b} keys %filteredFiles)
+         {
+            print " $value";
          }
          print "\n";
 
