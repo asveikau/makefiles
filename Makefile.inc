@@ -1,6 +1,8 @@
 ifndef MAKEFILES_INC
 MAKEFILES_INC:=y
 
+.DELETE_ON_ERROR:
+
 SRC2OBJ := sh $(MAKEFILES_ROOT)scripts/src2obj.sh
 DEPEND := perl $(MAKEFILES_ROOT)scripts/depend.pl
 
