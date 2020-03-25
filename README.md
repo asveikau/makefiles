@@ -11,7 +11,7 @@ featureful.
 
 Harnessing the power of make, we get:
 
-* Dependency tracking for minimul rebuild
+* Dependency tracking for minimal rebuild
 * Parallel builds via `make -j`
 * Some scripting, useful for platform-specific configuration (who needs `./configure`?).
 
