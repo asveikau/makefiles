@@ -34,7 +34,7 @@ int main() {
    {
       a.push_back(256);
    }
-   catch (std::bad_alloc)
+   catch (const std::bad_alloc&)
    {
    }
 }
