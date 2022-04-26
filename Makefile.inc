@@ -23,7 +23,9 @@ CXX_GNU:=y
 CXXFLAGS+=-fpermissive
 endif
 
+ifndef NOSTDLIB
 CFLAGS+=-pthread
 LDFLAGS+=-pthread
+endif
 
 endif
