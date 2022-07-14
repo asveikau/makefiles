@@ -9,6 +9,18 @@ my %exts = (
    "S"   => { }, 
 );
 
+my %generated_headers = (
+);
+
+foreach $hmap_s (split(/ /, $ENV{'GENERATED_HEADERS'}))
+{
+   my @hmap = split('=', $hmap_s);
+   if (scalar(@hmap) eq 2)
+   {
+      $generated_headers{$hmap[0]} = $hmap[1];
+   }
+}
+
 my %flags_cache;
 my $project = $ENV{'PROJECT'};
 
@@ -84,18 +96,26 @@ sub process_file
          }
          if ($incfile && !$files->{$incfile})
          {
-            my @includesCopy = @$includes;
-
-            unshift @includesCopy, dirname($filename);
-
-            foreach $inc (@includesCopy)
+            my $var = $generated_headers{$incfile};
+            if ($var)
             {
-               my $candidate = "$inc" . "/$incfile";
+               $files->{$incfile} = '${' . $var . '}';
+            }
+            else
+            {
+               my @includesCopy = @$includes;
 
-               if (-e $candidate)
+               unshift @includesCopy, dirname($filename);
+
+               foreach $inc (@includesCopy)
                {
-                   $files->{$incfile} = $candidate;
-                   process_file($files, $includes, $candidate);
+                  my $candidate = "$inc" . "/$incfile";
+
+                  if (-e $candidate)
+                  {
+                     $files->{$incfile} = $candidate;
+                     process_file($files, $includes, $candidate);
+                  }
                }
             }
          }
@@ -128,6 +148,11 @@ sub filter_dotdot
 sub filter_roots
 {
    my $file = shift;
+
+   if ($file && substr($file, 0, 1) eq '$')
+   {
+      return $file;
+   }
 
    foreach my $root (@roots)
    {
