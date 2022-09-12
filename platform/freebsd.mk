@@ -1,4 +1,4 @@
 ifndef NOSTDLIB
-CFLAGS+=-I/usr/local/include
+LATE_CFLAGS+=-I/usr/local/include
 LDFLAGS+=-L/usr/local/lib
 endif

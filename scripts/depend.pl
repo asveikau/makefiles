@@ -233,6 +233,10 @@ foreach (@ARGV)
                   print " \$($project" . "_$env)";
                }
             }
+            foreach $env (split(/ /, $extrec->{'env'}))
+            {
+               print " \$(LATE_" . "$env)";
+            }
             print " -c -o \$@ \$<\n";
          }
       }
