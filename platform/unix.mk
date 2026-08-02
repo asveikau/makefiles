@@ -11,7 +11,8 @@ CFLAGS+=-Wno-gnu-zero-variadic-macro-arguments
 CXXFLAGS+=-Wno-c99-extensions
 endif
 
-CXXFLAGS+=-std=c++11
+CXX_VERSION?=11
+CXXFLAGS+=-std=c++${CXX_VERSION}
 
 LIBPREFIX:=lib
 LIBSUFFIX:=.a
