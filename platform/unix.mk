@@ -16,5 +16,6 @@ CXXFLAGS+=-std=c++${CXX_VERSION}
 
 LIBPREFIX:=lib
 LIBSUFFIX:=.a
+SOSUFFIX:=.so
 LIBWRAPPER=@echo Archiving $@ ... && rm -f $@ && ar cq $@
 STRIP:=sh $(MAKEFILES_ROOT)scripts/strip.sh

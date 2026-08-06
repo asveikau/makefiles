@@ -1,0 +1,1 @@
+SOSUFFIX=.dylib

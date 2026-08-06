@@ -6,6 +6,7 @@ LIB  := $(MAKEFILES_ROOT)win32-bin/clwrapper-lib
 
 EXESUFFIX:=.exe
 LIBSUFFIX:=.lib
+SOSUFFIX:=.dll
 LIBWRAPPER=@echo Archiving $@ ... && $(LIB) /OUT:$@
 
 CFLAGS+=\
